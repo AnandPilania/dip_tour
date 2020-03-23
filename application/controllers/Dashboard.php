@@ -382,6 +382,152 @@ class Dashboard extends CI_Controller {
         }
 
 	}
+public function deleteFlight($id){
+		$getId=$_GET['id'];
+		//print_r($getId);die;
+		$this->load->model('Flightsearch');
+		$data['viewName'] = 'Flights';
+		$data['v'] = 'Dashboard/flights';
+		$getData = $this->Flightsearch->deleteDataForId($getId);
+		redirect(base_url('Dashboard/flights'));
+		
+	}
+	public function deleteHotel($id){
+		$getId=$_GET['id'];
+		$this->load->model('Hotelquery');
+		$data['viewName'] = 'hotel';
+		$data['v'] = 'Dashboard/hotel';
+		$this->Hotelquery->deleteDataForId($getId);
+		redirect(base_url('Dashboard/Hotel'));
+		
+	}
+public function UserList(){
+		$this->load->model('Registereduser');
+		$getUser = $this->Registereduser->get();
+		$data['v'] = 'Dashboard/UserList';
+		$data['viewName'] = 'Registered Users';
+		$data['data'] = json_decode(json_encode($getUser), true);
+		$this->load->view('template', $data);
+	}
+
+	public function deleteUser($id){
+		
+		$getId=$_GET['id'];
+		$this->load->model('Registereduser');
+		$data['viewName'] = 'User List';	
+		$data['v'] = 'Dashboard/UserList';
+		$this->Registereduser->deleteDataForId($getId);
+		//print_r("hi");
+		redirect(base_url('Dashboard/UserList'));
+		
+	}
+		public function editUser($id){
+		$getId=$_GET['id'];
+		//print_r($getId);die;
+		$this->load->model('Registereduser');
+		$data['v'] = 'Dashboard/edit_userlist';
+		$data['viewName'] = 'edit user';
+		$getData = $this->Registereduser->getDataId($getId);
+		$data['data'] = json_decode(json_encode($getData), true);
+		//print_r($data);die;
+		$this->load->view('template', $data);
+	}
+	public function updateUserDetails(){
+		try{
+			$this->load->model('Registereduser');
+			$data = $this->input->post();
+			//print_r($data);die;
+			$edit_id = $data['id'];
+			if(!empty($_FILES['tour_image']['name'])){
+				$data['tour_image'] = $this->uploadImageFileToPath($_FILES, 'tour_images', 'tour_image');
+			}else{
+				$getDataForId = $this->Registereduser->getDataForId($edit_id);
+				$data['tour_image'] = json_decode(json_encode($getDataForId), true)[0]['tour_image'];
+			}
+			$this->Registereduser->edit($data);
+			$message = "<span style='background-color:green;color:white;'>User Details saved</span>";
+	        $this->session->set_flashdata('item', $message);
+			redirect(base_url('Dashboard/UserList'));
+
+		}catch(Exception $e){
+                $message = "<span style='background-color:red;'>Something went wrong... Try again</span>";
+                $this->session->set_flashdata('item', $message);
+                redirect(base_url('Dashboard/ListTourPackages'));
+        }
+
+	}
+	public function deleteTravelsim($id){
+		$getId=$_GET['id'];
+		$this->load->model('Travelsimquery');
+		$data['viewName'] = 'Travel sim';
+		$data['v'] = 'Dashboard/Travelsim';
+		$this->Travelsimquery->deleteDataForId($getId);
+		redirect(base_url('Dashboard/TravelSimData'));
+		
+	}
+	public function flightPopup(){
+		$data['v'] = 'Dashboard/flight_popup';
+		$data['viewName'] = 'send email';
+		$this->load->view('template',$data);
+
+	}
+	public function send_email($from,$to,$subject,$message) {
+   $host = 'cbhbooking.com';
+   $port = '';
+    $config = Array(
+        'protocol' => 'smtp',
+        'smtp_host' => '$host',
+        'smtp_port' => '$port',
+        'smtp_user' => '$user_name',
+        'smtp_pass' => 'xxxxxx',
+        'mailtype' => 'html',
+        'charset' => 'utf-8',
+        'smtp_timeout' => 7,
+        'newline' => '\r\n',
+        'validation' => TRUE,
+    );
+    $this->load->library('email', $config);
+    $this->email->set_newline("\r\n");
+
+    $config['newline'] = "\r\n";
+
+    $this->email->initialize($config);
+
+    $this->email->from($from);
+    $this->email->to($to);
+   
+    $this->email->subject($subject);
+    $this->email->message($message);
+   
+    $this->email->send();
+}
+
+	 public function contact_insert() {
+		try{
+			$data = $this->input->post();
+			$name=$data['userName'];
+			$content =$data['message'];
+			$from= 'dip_tour@demo.tkies.com';
+			$email_to = $data['userEmail'];
+			$subject=$data['subject'];
+			$message = '<html><body>';
+			$message .= '<table rules="all" style="border-color: #666;" cellpadding="10">';
+			$message .= "<tr style='background: #eee;'><td><strong>Dear ".$name.",</strong> </td></tr>";
+			$message .= "<tr><td>" .$content. "</td></tr>";
+			$message .= "</table>";
+			$message .= "</body></html>";
+			$this->send_email($from,$email_to,$subject,$message);
+			$message = "<span style='background-color:white;color:green;'>Email sent</span>";
+			redirect(base_url('Dashboard/flights'));
+
+				}
+	    catch(Exception $e){
+	    	 $message = "<span style='background-color:red;'>please try again</span>";
+                $this->session->set_flashdata('item', $message);
+                redirect(base_url('Dashboard/flights'));
+	    }
+		
+	}
 
 
 }
