@@ -17,10 +17,12 @@ CREATE TABLE `tour_package` (
   `rating` int(11) NOT NULL,
   `cost_per_head` int(11) NOT NULL,
   `tour_image` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `tour_package` (`id`, `title`, `duration`, `no_of_reviews`, `rating`, `cost_per_head`, `tour_image`) VALUES
-(1,	'Ultimate Louvre: Skip-the-Line Guided Tour',	'2N / 3D',	18266,	3,	5,	'/tmp/tour_images/tour1.jpg');
+INSERT INTO `tour_package` (`id`, `title`, `duration`, `no_of_reviews`, `rating`, `cost_per_head`, `tour_image`,`description`,`status`) VALUES
+(1,	'Ultimate Louvre: Skip-the-Line Guided Tour',	'2N / 3D',	18266,	3,	5,	'/tmp/tour_images/tour1.jpg','xyz');
 
 -- 2019-12-05 20:46:17
