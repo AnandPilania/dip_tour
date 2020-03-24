@@ -114,7 +114,7 @@ class CI_Controller {
 	public function uploadImageFileToPath($files, $type, $name){
 		$target_dir = $type."/";
 		$save_to_db = "/tmp/".$type."/".$files[$name]["name"];
-        $target_file = $_SERVER['DOCUMENT_ROOT'] ."/tmp/". $target_dir . basename($files[$name]["name"]);
+        $target_file = UPLOAD_FILE_PATH ."/tmp/". $target_dir . basename($files[$name]["name"]);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 		if (isset($files[$name]) && empty($files[$name]['error'])) {
