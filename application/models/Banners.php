@@ -48,8 +48,10 @@ class Banners extends CI_Model{
 
 
 	public function insertData($data){
-		$this->dip->where('id', '1'); 		
-		return $this->dip->update($this->getTableName(), $data);
+		$this->dip->set($data);	
+		$this->dip->where('id', '1'); 
+		return $this->dip->update($this->getTableName());	
+		//print_r($this->dip->last_query()); exit;
 	}
 
 
@@ -76,7 +78,7 @@ class Banners extends CI_Model{
 
 	}
 
-	public function update(){
+	public function update1(){
 		$data['is_active'] = 0;
 		$this->dip->update($this->getTableName(),$data);
 	}

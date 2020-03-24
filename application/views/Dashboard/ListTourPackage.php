@@ -234,7 +234,7 @@ h3{
 	<div class="col-sm-3">
       <div class="input-block">
         <label for="">Description</label>
-        <input type="textarea" rows="4" cols="8" class="form-control" name="description" value="<?php echo $data['description'] ;?>">
+        <textarea rows="4" cols="8" class="form-control" name="description"> </textarea>
       </div>
     </div>
   </div>

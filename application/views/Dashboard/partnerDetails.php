@@ -150,7 +150,7 @@ h3{
 
 
 </style><h2><?php echo $this->session->flashdata('item'); ?></h2> 
-  <form class="contact-form" enctype="multipart/form-data" action="<?php echo base_url();?>Dashboard/addTourPackage" method="post">
+  <form class="contact-form" enctype="multipart/form-data" action="<?php echo base_url();?>Dashboard/addPartnerLogo" method="post">
     <div class="col-sm-4">
       <div class="input-block">
         <label for="">First Name</label>

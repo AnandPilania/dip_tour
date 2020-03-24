@@ -7,17 +7,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="stylesheet" href="./css/bootstrap.min.css">
+        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+        
         <link rel="stylesheet" href="./css/jquery-ui.css">
         <link href="./css/style.css" rel="stylesheet">
 
         <!--Start of Zendesk Chat Script-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
-        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+        <!--script src="https://kit.fontawesome.com/a076d05399.js"></script-->
 
         <link href="<?php echo base_url();?>css/newstyle.css" rel="stylesheet">
         <link href="<?php echo base_url();?>/css/rearrange.css" rel="stylesheet">
@@ -465,7 +466,7 @@ function closeForm() {
                             </div>
                         </div>
                     </div><!--/.card-->
-                </div>
+                
                 <div class="col-md-4">
                     <div class="card border-success mb-3">
                         <h5 class="card-header bg-success text-white" style="text-align: center; padding-bottom: 35px;">--TRAVEL & HEALTH INSURANCE--</h5>

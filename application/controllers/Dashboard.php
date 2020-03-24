@@ -102,7 +102,9 @@ class Dashboard extends CI_Controller {
 
 		$data['v'] = 'Dashboard/banners';
 		$data['viewName'] = 'CMS | Banners';
-		//$data['data'] = json_decode(json_encode($getDataForVisaQuery), true);
+		$this->load->model('Banners');
+		$getDataForVisaQuery = $this->Banners->get();
+		$data['data'] = json_decode(json_encode($getDataForVisaQuery), true);
 		$this->load->view('template',$data);
 
 	}
@@ -115,13 +117,20 @@ class Dashboard extends CI_Controller {
 			$inputData['banner3'] = $this->uploadImageFileToPath($_FILES, 'banner', 'banner_3');
 
 			$this->load->model('Banners');
-			if($inputData['banner1'] != 0 && $inputData['banner2'] != 0 && $inputData['banner3'] != 0){
+			///print_r($inputData);
+
+			if(!empty($inputData['banner1']) && !empty($inputData['banner2']) && !empty($inputData['banner3'])){
+				//die("suprabha1");
 				$partnerLogo = $this->Banners->insertData($inputData);
+				//echo "here"; exit;
 				$message = "<span style='background-color:green;color:white;'>Banner data saved successfully</span>";
 				$this->session->set_flashdata('item', $message);
 				redirect(base_url('Dashboard/banners'));
 			}
+
+			//die("suprabha3");
 		}catch(Exception $e){
+			//echo "else here"; exit;
                 $message = "<span style='background-color:red;'>Something went wrong... Try again</span>";
                 $this->session->set_flashdata('item', $message);
                 redirect(base_url('Dashboard/banners'));

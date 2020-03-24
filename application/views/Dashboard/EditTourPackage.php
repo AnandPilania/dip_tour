@@ -241,14 +241,17 @@ h3{
       <!--button class="square-button" style="margin-top: 30px; padding-bottom: 20px; padding-top: 20px;">Note: Partner Logo Image Size:</button-->
       </div>
     </div>
-	<div class="col-sm-3">
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col-sm-4">
       <div class="input-block">
         <label for="">Description</label>
-        <input type="textarea" rows="4" cols="8" class="form-control" name="description" value="<?php echo $data['description'] ;?>">
+          <textarea rows="4" cols="8" class="form-control" name="description"> <?php echo $data['description']; ?> </textarea> 
+          
       </div>
     </div>
   </div>
-  
   <br/>
   <br/>
 <div class="row">
