@@ -956,10 +956,10 @@ function closeForm() {
     </div>
     <section class="customer-logos slider"  style="margin-bottom: 40px;">
         <?php foreach($partner_details as $k => $v){ ?>
-            <div class="slide"><img src="<?php echo $v['file_path']; ?>" /></div>
+            <div class="slide"><img src="<?php echo base_url() . $v['file_path']; ?>" /></div>
         <?php } ?>
         <?php foreach($partner_details as $k => $v){ ?>
-            <div class="slide"><img src="<?php echo $v['file_path']; ?>" /></div>
+            <div class="slide"><img src="<?php echo base_url() . $v['file_path']; ?>" /></div>
         <?php } ?>  
     </section>
         <footer class="mainfooter" role="contentinfo" style="margin-top: 0px;">
