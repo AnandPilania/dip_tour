@@ -391,6 +391,131 @@ class Dashboard extends CI_Controller {
         }
 
 	}
+	public function send_mail($from,$to,$subject,$message) {
+	$this->load->model('Newsletter_content');
+   $getData=$this->Newsletter_content->get_mail();
+ // print_r($getData);die;
+  $host = 'cbhbooking.com';
+   $port = '';
+    $config = Array(
+        'protocol' => 'smtp',
+        'smtp_host' => '$host',
+        'smtp_port' => '$port',
+        'smtp_user' => '$user_name',
+        'smtp_pass' => 'xxxxxx',
+        'mailtype' => 'html',
+        'charset' => 'utf-8',
+        'smtp_timeout' => 7,
+        'newline' => '\r\n',
+        'validation' => TRUE,
+    );
+    $this->load->library('email', $config);
+    $this->email->set_newline("\r\n");
+
+    $config['newline'] = "\r\n";
+
+    $this->email->initialize($config);
+
+    $this->email->from($from);
+    $this->email->to($to);
+   
+    $this->email->subject($subject);
+    $this->email->message($message);
+   
+    $this->email->send();
+}
+	
+public function newsletter_content(){
+	$this->load->model('Newsletter_content');
+		$getNewsletter = $this->Newsletter_content->get();
+		$data['v'] = 'Dashboard/newsletter';
+		$data['viewName'] = 'newsletter';
+		$data['news'] = json_decode(json_encode($getNewsletter), true);
+		//print_r($data);die;
+		$this->load->view('template',$data);
+	
+	}
+	public function newsletter_add(){
+	$this->load->model('Newsletter_content');
+	$this->load->model('Newsletter');
+		$getNews = $this->Newsletter_content->get();
+		$subscriber = $this->Newsletter->get();
+		$data['v'] = 'Dashboard/newsletter_add';
+		$data['viewName'] = 'newsletter_add';
+		$data['subscribers'] = json_decode(json_encode($subscriber), true);
+		//print_r($data);die;
+		$this->load->view('template',$data);
+	
+	}
+
+	 public function newsletterInsert() {
+		try{
+			$data = $this->input->post();
+			$cont=$this->input->post('newsletter_content');
+			 $clients = $this->input->post('subscriber');
+			//print_r($data);die;
+			$this->load->model('Newsletter_content');
+	        $this->load->model('Newsletter');
+			$sub = $this->Newsletter->get();
+			$data['added_date'] = date('Y-m-d H:i:s',time());
+			$content = $this->Newsletter_content->newsletterInsert($data);
+			$message = "<span style='color:red'>Newsletter inserted </span>";
+			 $this->session->set_flashdata('item', $message);
+			$from= 'dip_tour@demo.tkies.com';
+			echo $email_to = $clients;
+			//$subject =$data->subject ;
+			$message = '<html><body>';
+			$message .= '<img src="'.base_url().'"diptour/images/logo.png" alt="Website Change Request" />';
+			$message .= '<table rules="all" style="border-color: #666;" cellpadding="10">';
+			$message .= "<tr style='background: #eee;'><td><strong>Dear Subscriber,</strong> </td></tr>";
+			$message .= "<tr><td>" .$cont. "</td></tr>";
+			$message .= "</table>";
+			$message .= "</body></html>";
+			//$message =$newletter_content;
+			$this->send_mail($from,$email_to,$subject,$message);
+			redirect(base_url('Dashboard/newsletter_content'));
+
+				}
+				
+		
+	    catch(Exception $e){
+	    	 $message = "<span style='background-color:red;'>please try again</span>";
+                $this->session->set_flashdata('item', $message);
+                redirect(base_url('Dashboard/newsletterInsert'));
+	    }
+		
+	}
+	
+	public function newsletter_edit($id){
+		$getId=$_GET['id'];
+		//print_r($id);die;
+		$this->load->model('Newsletter');
+		$this->load->model('Newsletter_content');
+		$data['v'] = 'Dashboard/newsletter_edit';
+		$data['viewName'] = 'newsletter_edit';
+		$sub = $this->Newsletter->get();
+		$getData = $this->Newsletter_content->getDataId($getId);
+		$data['data'] = json_decode(json_encode($getData), true);
+		$this->load->view('template', $data);
+	}
+	public function updateNewsletter(){
+		try{
+			$this->load->model('Newsletter_content');
+			$data = $this->input->post();
+			$edit_id = $val['id'];
+			
+			$this->Newsletter_content->edit($data);
+			$message = "<span style='background-color:green;color:white;'>Newsletter_content saved</span>";
+	        $this->session->set_flashdata('item', $message);
+			redirect(base_url('Dashboard/newsletter_content'));
+
+		}catch(Exception $e){
+                $message = "<span style='background-color:red;'>Something went wrong... Try again</span>";
+                $this->session->set_flashdata('item', $message);
+                redirect(base_url('Dashboard/newsletter_edit'));
+        }
+
+	}
 public function deleteFlight($id){
 		$getId=$_GET['id'];
 		//print_r($getId);die;
