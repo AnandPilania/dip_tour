@@ -172,7 +172,9 @@ class Dashboard extends CI_Controller {
 
 		$data['v'] = 'Dashboard/contact_us';
 		$data['viewName'] = 'CMS | Contact Us Info';
-		//$data['data'] = json_decode(json_encode($getDataForVisaQuery), true);
+		$this->load->model('Contactinfo');
+		$getDataForVisaQuery = $this->Contactinfo->get(); 
+		$data['data'] = json_decode(json_encode($getDataForVisaQuery), true)[0];
 		$this->load->view('template',$data);
 
 	}
@@ -536,8 +538,8 @@ public function deleteFlight($id){
 		
 	}
 public function UserList(){
-		$this->load->model('Registereduser');
-		$getUser = $this->Registereduser->get();
+		$this->load->model('Registeruser');
+		$getUser = $this->Registeruser->getUserData();
 		$data['v'] = 'Dashboard/UserList';
 		$data['viewName'] = 'Registered Users';
 		$data['data'] = json_decode(json_encode($getUser), true);
@@ -547,10 +549,10 @@ public function UserList(){
 	public function deleteUser($id){
 		
 		$getId=$_GET['id'];
-		$this->load->model('Registereduser');
+		$this->load->model('Registeruser');
 		$data['viewName'] = 'User List';	
 		$data['v'] = 'Dashboard/UserList';
-		$this->Registereduser->deleteDataForId($getId);
+		$this->Registeruser->deleteDataForId($getId);
 		//print_r("hi");
 		redirect(base_url('Dashboard/UserList'));
 		
@@ -558,27 +560,27 @@ public function UserList(){
 		public function editUser($id){
 		$getId=$_GET['id'];
 		//print_r($getId);die;
-		$this->load->model('Registereduser');
+		$this->load->model('Registeruser');
 		$data['v'] = 'Dashboard/edit_userlist';
 		$data['viewName'] = 'edit user';
-		$getData = $this->Registereduser->getDataId($getId);
+		$getData = $this->Registeruser->getDataId($getId);
 		$data['data'] = json_decode(json_encode($getData), true);
 		//print_r($data);die;
 		$this->load->view('template', $data);
 	}
 	public function updateUserDetails(){
 		try{
-			$this->load->model('Registereduser');
+			$this->load->model('Registeruser');
 			$data = $this->input->post();
 			//print_r($data);die;
 			$edit_id = $data['id'];
 			if(!empty($_FILES['tour_image']['name'])){
 				$data['tour_image'] = $this->uploadImageFileToPath($_FILES, 'tour_images', 'tour_image');
 			}else{
-				$getDataForId = $this->Registereduser->getDataForId($edit_id);
+				$getDataForId = $this->Registeruser->getDataForId($edit_id);
 				$data['tour_image'] = json_decode(json_encode($getDataForId), true)[0]['tour_image'];
 			}
-			$this->Registereduser->edit($data);
+			$this->Registeruser->edit($data);
 			$message = "<span style='background-color:green;color:white;'>User Details saved</span>";
 	        $this->session->set_flashdata('item', $message);
 			redirect(base_url('Dashboard/UserList'));

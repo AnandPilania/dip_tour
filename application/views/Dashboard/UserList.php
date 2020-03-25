@@ -30,7 +30,7 @@
                         echo '<th>'.trim(ucwords(str_replace('_',' ',$headername))).'</th>';
                     }
                 }?>
-              
+                <th> Action </th>
             </tr>
         </thead>
         <tbody>
@@ -46,8 +46,9 @@
                               echo '<td>'.$v[$headername].'</td>';
                       }
                      ?>
+
 					 <td>
-							<input data-group="<?php echo $val['id']; ?>" type="hidden" name="id" value="<?php echo $val['id']; ?>"/>
+							<input data-group="<?php echo $v['id']; ?>" type="hidden" name="id" value="<?php echo $v['id']; ?>"/>
 							<a href="<?php echo base_url();?>Dashboard/deleteUser?id=<?php echo $v['id']; ?>"/>
 							   <i class="fa fa-trash-o"  aria-hidden="true"data-toggle="tooltip" data-placement="top" title="Delete" style="font-size:20px"></i>
 							

@@ -118,9 +118,13 @@ h3{
                             <div class="col-md-2"></div>
                             <div class="col-md-8">
                         <form action="<?php echo base_url('/Dashboard/addContactInfo'); ?>" method="post">
+
                         <input class="submit" type="text" value="Phone 1">
-    <input class="input" type="text" placeholder="" name="phone_no_1">
-    
+                        <?php if(!empty($data['phone_no_1'])){ ?>
+                            <input class="input" type="text" placeholder="" value="<?php echo $data['phone_no_1'];?>" name="phone_no_1">
+                        <?php }else {?>
+                           <input class="input" type="text" placeholder="" name="phone_no_1">
+                        <?php } ?>
 
 
 </div>
@@ -133,7 +137,11 @@ h3{
                             <div class="col-md-8">
 
                         <input class="submit" type="text" value="Phone 2">
-    <input class="input" type="text" placeholder="" name="phone_no_2">
+                        <?php if(!empty($data['phone_no_2'])){ ?>
+                            <input class="input" type="text" placeholder="" value="<?php echo $data['phone_no_2'];?>" name="phone_no_2">
+                        <?php }else {?>
+                           <input class="input" type="text" placeholder="" name="phone_no_2">
+                        <?php } ?>
 
     
 </div>
@@ -146,7 +154,11 @@ h3{
                             <div class="col-md-8">
                       
                         <input class="submit" type="text" value="Phone 3">
-    <input class="input" type="text" placeholder="" name="phone_no_3">
+                        <?php if(!empty($data['phone_no_3'])){ ?>
+                            <input class="input" type="text" placeholder="" value="<?php echo $data['phone_no_3'];?>" name="phone_no_3">
+                        <?php }else {?>
+                           <input class="input" type="text" placeholder="" name="phone_no_3">
+                        <?php } ?>
     
 
     
