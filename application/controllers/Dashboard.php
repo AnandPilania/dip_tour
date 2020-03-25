@@ -112,9 +112,9 @@ class Dashboard extends CI_Controller {
 
 	public function addBanner(){
 		try{
-			$inputData['banner1'] = $this->uploadImageFileToPath($_FILES, 'banner', 'banner_1');
-			$inputData['banner2'] = $this->uploadImageFileToPath($_FILES, 'banner', 'banner_2');
-			$inputData['banner3'] = $this->uploadImageFileToPath($_FILES, 'banner', 'banner_3');
+			$inputData['banner1'] = ltrim($this->uploadImageFileToPath($_FILES, 'banner', 'banner_1'), '/');
+			$inputData['banner2'] = ltrim($this->uploadImageFileToPath($_FILES, 'banner', 'banner_2'),'/');
+			$inputData['banner3'] = ltrim($this->uploadImageFileToPath($_FILES, 'banner', 'banner_3'),'/');
 
 			$this->load->model('Banners');
 			///print_r($inputData);
